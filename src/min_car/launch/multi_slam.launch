@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- 默认模型-->
+    <arg name="model" default="waffle" doc="model type [burger, waffle, waffle_pi]" />
+
+    <!-- gazebo-->
+    <include file="$(find turtlebot3_gazebo)/launch/multi_turtlebot3_world.launch" />
+
+    <!--  启动SLAM节点-->
+    <!-- <include file="$(find turtlebot3_gazebo)/launch/multi_turtlebot3_slam.launch" >
+        <arg name="ns" value="tb3_0" />
+    </include>
+
+    <include file="$(find turtlebot3_gazebo)/launch/multi_turtlebot3_slam.launch" >
+        <arg name="ns" value="tb3_1" />
+    </include>
+
+    <include file="$(find turtlebot3_gazebo)/launch/multi_turtlebot3_slam.launch" >
+        <arg name="ns" value="tb3_2" />
+    </include> -->
+    <include file="$(find turtlebot3_gazebo)/launch/multi_turtlebot3_slam_max.launch" />
+
+    <!-- map-merge -->
+    <include file="$(find turtlebot3_gazebo)/launch/multi_map_merge.launch" />
+
+    <!-- move_base-->
+    <include file="$(find min_car)/launch/move_base_three.launch" />
+    <!-- <include file="$(find min_car)/launch/navigation_three.launch" /> -->
+
+    <!-- 自主探索：explore_lite -->
+    <!-- <include file="$(find min_car)/launch/explore_costmap.launch" >
+        <arg name="ns" value="tb3_0" />
+    </include>
+    <include file="$(find min_car)/launch/explore_costmap.launch" >
+        <arg name="ns" value="tb3_1" />
+    </include>
+    <include file="$(find min_car)/launch/explore_costmap.launch" >
+        <arg name="ns" value="tb3_2" />
+    </include> -->
+    
+
+    <!-- rviz-->
+    <node pkg="rviz" type="rviz" name="rviz" required="true" 
+    args="-d $(find min_car)/rviz/tri_robot_slam.rviz"/>
+
+</launch>

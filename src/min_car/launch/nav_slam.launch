@@ -1,0 +1,15 @@
+<launch>
+    <!-- 默认模型-->
+    <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]" />
+    <!--  启动SLAM节点-->
+    <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch" >
+        <arg name="open_rviz" value="false" />
+    </include>
+    <!-- move_base-->
+    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+        <arg name="open_rviz" value="false" />
+    </include>
+    
+    <node pkg="rviz" type="rviz" name="rviz" required="true" 
+    args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+</launch>
